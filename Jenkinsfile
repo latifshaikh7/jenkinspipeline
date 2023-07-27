@@ -22,7 +22,7 @@ stages{
         }
         stage ('Deploy to Staging') {
             steps {
-                bat 'xcopy /Y C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Pipelinecode-job\\webapp\\target\\*.war C:\\ptc-training\\training\\jenkins\\pipelineascode_tomcat\\apache-tomcat-8.5.91-stage\\webapps'\
+                bat 'xcopy /Y webapp\\target\\*.war C:\\ptc-training\\training\\jenkins\\pipelineascode_tomcat\\apache-tomcat-8.5.91-stage\\webapps'\
             }
         }
         stage ('Deploy to Production'){
@@ -30,7 +30,7 @@ stages{
                 timeout(time:5, unit:'DAYS'){
                     input message:'Approve PRODUCTION DEPLOYMENT?'
                 }
-                bat 'xcopy /Y C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Pipelinecode-job\\webapp\\target\\*.war C:\\ptc-training\\training\\jenkins\\pipelineascode_tomcat\\apache-tomcat-8.5.91-prod\\webapps'\
+                bat 'xcopy /Y webapp\\target\\*.war C:\\ptc-training\\training\\jenkins\\pipelineascode_tomcat\\apache-tomcat-8.5.91-prod\\webapps'\
             }
             post{
                 success {
