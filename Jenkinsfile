@@ -22,7 +22,7 @@ stages{
         }
         stage ('Deploy to Staging') {
             steps {
-                bat 'start cmd.exe /c **\\target\\*.war C:\\ptc-training\\training\\jenkins\\apache-tomcat-8.5.91-stage\\webapps'\
+                bat 'start cmd.exe /c **\\target\\*.war C:\\ptc-training\\training\\jenkins\\pipelineascode_tomcat\\apache-tomcat-8.5.91-stage\\webapps'\
             }
         }
         stage ('Deploy to Production'){
