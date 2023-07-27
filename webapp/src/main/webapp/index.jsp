@@ -1,1 +1,1 @@
-Hello, World! Version 10
+This is for pipeline_as_code example
