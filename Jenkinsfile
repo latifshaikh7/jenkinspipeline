@@ -4,10 +4,6 @@ pipeline {
         maven 'localMaven'
     }
 
-#    triggers {
-#         pollSCM('* * * * *') // Polling Source Control
-#     }
-
 stages{
         stage('Build'){
             steps {
