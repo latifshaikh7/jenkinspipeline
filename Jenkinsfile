@@ -9,7 +9,11 @@ pipeline {
      }
 
 stages{
-        stage('Build'){
+        stage('Build Main'){
+            when {
+                branch 'main'
+            }
+        
             steps {
                 bat 'mvn clean package'
             }
@@ -20,27 +24,28 @@ stages{
                 }
             }
         }
-        stage ('Deploy to Staging') {
+        stage ('Deploy to Main'){
+            when {
+                branch 'main'
+            }
+        
             steps {
                 bat 'xcopy /Y webapp\\target\\*.war C:\\ptc-training\\training\\jenkins\\pipelineascode_tomcat\\apache-tomcat-8.5.91-stage\\webapps'\
             }
         }
-        stage ('Deploy to Production'){
-            steps{
-                timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION DEPLOYMENT?'
-                }
-                bat 'xcopy /Y webapp\\target\\*.war C:\\ptc-training\\training\\jenkins\\pipelineascode_tomcat\\apache-tomcat-8.5.91-prod\\webapps'\
+        stage('Build to Dev'){
+            when {
+                branch 'dev'
             }
-            post{
-                success {
-                    echo 'Code Deployed to Production'
-                }
-                failure {
-                    echo 'Deployment failed.'
-                }
+            
+            steps {
+                bat 'mvn clean package'
+                bat "docker build . -t tomcatwebapp:${env.BUILD_ID}"
             }
         }
  
     }
 }
+
+
+
